@@ -7,6 +7,8 @@ interface CartContextData {
   handleSetCart: (item: CartProps) => void;
   removeItemCart: (item: CartProps) => void;
   total: string;
+  selectItem: (item: CartProps) => void;
+  itemSelecionado: CartProps[];
 }
 
 export interface CartProps {
@@ -28,6 +30,7 @@ export const CartContext = createContext({} as CartContextData);
 function CartProvider({ children }: CartProviderProps) {
   const [cart, setCart] = useState<CartProps[]>([]);
   const [total, setTotal] = useState("");
+  const [itemSelecionado, setItemSelecionado] = useState<CartProps[]>([]);
 
   const handleSetCart = (newItem: CartProps) => {
     const indexCart = cart.findIndex((item) => item.id === newItem.id);
@@ -101,6 +104,10 @@ function CartProvider({ children }: CartProviderProps) {
     setTotal(formatReuslt);
   }
 
+  function selectItem(item: CartProps) {
+    setItemSelecionado([item]);
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -110,6 +117,8 @@ function CartProvider({ children }: CartProviderProps) {
         removeItemCart,
         handleSetCart,
         total,
+        selectItem,
+        itemSelecionado,
       }}
     >
       {children}

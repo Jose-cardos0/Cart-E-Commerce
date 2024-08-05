@@ -10,6 +10,9 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { CartContext } from "../Context/CartContext";
 
+//react-router
+import { Link } from "react-router-dom";
+
 export interface PropsLista {
   id: number;
   title: string;
@@ -23,7 +26,7 @@ export interface PropsLista {
 export function Home() {
   const [data, setData] = useState<PropsLista[]>([]);
 
-  const { setCart } = useContext(CartContext);
+  const { setCart, selectItem } = useContext(CartContext);
 
   useEffect(() => {
     async function conectApi() {
@@ -38,6 +41,10 @@ export function Home() {
     setCart(item);
   }
 
+  // function setlectItem(item: PropsLista) {
+  //   return item;
+  // }
+
   return (
     <div className="flex w-full h-screen mr-auto justify-center  bg-slate-100">
       <div className="flex flex-col mt-4">
@@ -48,11 +55,13 @@ export function Home() {
               className="flex flex-col items-center justify-center max-w-full m-1 bg-white"
             >
               <h2 className="flex font-thin mb-3 p-2">{item.title}</h2>
-              <img
-                src={item.cover}
-                alt={item.description}
-                className=" flex items-center justify-center w-40 rounded-lg max-h-70 mb-2 hover:scale-[1.1] translate-x-4 skew-y-3 md:transform-none cursor-pointer"
-              />
+              <Link to={"/id"} onClick={() => selectItem(item)}>
+                <img
+                  src={item.cover}
+                  alt={item.description}
+                  className=" flex items-center justify-center w-40 rounded-lg max-h-70 mb-2 hover:scale-[1.1] translate-x-4 skew-y-3 md:transform-none cursor-pointer"
+                />
+              </Link>
               <div className="flex items-center justify-center gap-2 m-2">
                 <button onClick={() => adicionarProduto(item)}>
                   <FaBox
