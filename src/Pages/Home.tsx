@@ -55,7 +55,10 @@ export function Home() {
               className="flex flex-col items-center justify-center max-w-full m-1 bg-white"
             >
               <h2 className="flex font-thin mb-3 p-2">{item.title}</h2>
-              <Link to={"/id"} onClick={() => selectItem(item)}>
+              <Link
+                to={`/products/${item.id}`}
+                onClick={() => selectItem(item)}
+              >
                 <img
                   src={item.cover}
                   alt={item.description}

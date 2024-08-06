@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useState } from "react";
 
-interface CartContextData {
+export interface CartContextData {
   cart: CartProps[];
   cartAmound: number;
   setCart: (item: CartProps) => void;
@@ -60,17 +60,6 @@ function CartProvider({ children }: CartProviderProps) {
     setCart((produtos) => [...produtos, data]);
     totalResultsPrice([...cart, data]);
   };
-
-  //   function removeItemCart(produtos: CartProps) {
-  //     const indexItem = cart.findIndex((item) => item.id !== produtos.id);
-
-  //     if (cart[indexItem]?.amount > 1) {
-  //       cart[indexItem].amount -= 1;
-  //     } else {
-  //       const removeItem = cart.filter((item) => item.id !== produtos.id);
-  //       setCart(removeItem);
-  //     }
-  //   }
 
   function removeItemCart(produtos: CartProps) {
     const indexItem = cart.findIndex((item) => item.id === produtos.id); //encontrar item
