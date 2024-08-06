@@ -1,17 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../Context/CartContext";
-
 import { PropsLista } from "./Home";
-
 import api from "../Components/Api";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function Details() {
   const { setCart } = useContext(CartContext);
   const [itemEscolhido, setItemEscolhido] = useState<PropsLista>();
   console.log(itemEscolhido);
-
   const { id } = useParams();
+  const navigator = useNavigate();
+
   useEffect(() => {
     async function conectApi() {
       const response = await api.get(`/products/${id}`);
@@ -25,6 +25,7 @@ export function Details() {
 
   function adicionarProduto(item: PropsLista) {
     setCart(item);
+    navigator("/cart");
   }
 
   return (
